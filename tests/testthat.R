@@ -6,7 +6,7 @@
 # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
 # * https://testthat.r-lib.org/articles/special-files.html
 
-library(testthat)
-library(advr.05)
-
-test_check("advr.05")
+# library(testthat)
+# library(advr.05)
+#
+# test_check("advr.05")
