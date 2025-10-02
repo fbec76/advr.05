@@ -15,11 +15,13 @@ tnm_parse_csv_df <- function(resp) {
 #' @importFrom geojsonsf geojson_sf
 #' @importFrom geojsonio topojson_read
 tnm_parse_geo <- function(resp, geo_type) {
-  txt <- httr2::resp_body_string(resp)
+  json <- httr2::resp_body_string(resp)
   if (geo_type == "geojson") {
-    geojsonsf::geojson_sf(txt)
+    geojsonsf::geojson_sf(json)
   } else {
-    obj <- geojsonio::topojson_read(txt, what = "sp")
+    tf <- tempfile(fileext = ".json")
+    writeLines(json, tf)
+    obj <- geojsonio::geojson_read(tf, what = "sp")
     if (requireNamespace("sf", quietly = TRUE)) return(sf::st_as_sf(obj))
     obj
   }

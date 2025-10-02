@@ -1,0 +1,144 @@
+---
+title: "thenmap: R Interface to the Thenmap API"
+output: rmarkdown::html_vignette
+vignette: >
+    %\VignetteIndexEntry{thenmap}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(advr.05)
+```
+
+## Introduction
+
+The `advr.05` package provides an R interface to the [Thenmap API](http://api.thenmap.net), which offers historical and geospatial data. This package allows you to retrieve datasets, geospatial information, metadata, and SVG maps directly from the Thenmap service.
+
+## Exported Functions
+
+The package exports 5 main functions for interacting with the Thenmap API:
+
+### `tnm_set_config()`
+
+Configure global settings for the Thenmap API client.
+
+- **Purpose**: Set custom base URL, API version, default language, and timeout values
+- **Parameters**: `base_url`, `version`, `language`, `timeout`
+- **Returns**: Configuration list (invisibly)
+
+```{r}
+# Set custom configuration
+tnm_set_config(language = "sv", timeout = 60)
+```
+
+### `tnm_data()`
+
+Retrieve and parse tabular data from a Thenmap dataset.
+
+- **Purpose**: Download dataset information as a data frame
+- **Key Parameters**: `dataset` (required), `date`, `data_props`, `language`, `version`
+- **Returns**: Data frame with requested properties
+
+```{r}
+# Get basic country data
+countries <- tnm_data("world-2")
+
+# Get specific properties
+countries_detailed <- tnm_data("world-2",
+                               date = "2020-01-01",
+                               data_props = c("id", "name", "capital"))
+```
+
+### `tnm_geo()`
+
+Retrieve geospatial data from a Thenmap dataset.
+
+- **Purpose**: Download geographic boundaries as spatial objects
+- **Key Parameters**: `dataset` (required), `date` (required), `geo_type`, `geo_crs`, `geo_props`
+- **Returns**: `sf` object or parsed geospatial data
+
+```{r}
+# Get world boundaries as GeoJSON
+world_geo <- tnm_geo("world-2", date = "2020-01-01", geo_type = "geojson")
+
+# Get specific geographic properties with TopoJSON
+world_topo <- tnm_geo("world-2",
+                      date = "2020-01-01",
+                      geo_type = "topojson",
+                      geo_props = c("name", "iso_a2"))
+```
+
+### `tnm_info()`
+
+Retrieve metadata information about a Thenmap dataset.
+
+- **Purpose**: Get dataset properties, available dates, and metadata
+- **Key Parameters**: `dataset` (required), `version`, `language`
+- **Returns**: List containing dataset metadata
+
+```{r}
+# Get information about the world dataset
+world_info <- tnm_info("world-2")
+
+# View available properties and date ranges
+str(world_info)
+```
+
+### `tnm_svg()`
+
+Retrieve an SVG map from a Thenmap dataset.
+
+- **Purpose**: Download maps as SVG format for visualization
+- **Key Parameters**: `dataset` (required), `date` (required), `svg_width`, `svg_height`
+- **Returns**: SVG string or saves to file
+
+```{r}
+# Get SVG map as string
+world_svg <- tnm_svg("world-2", date = "2020-01-01",
+                     svg_width = 800, svg_height = 600)
+
+# Save SVG map to file
+tnm_svg("world-2", date = "2020-01-01")
+```
+
+## Basic Workflow
+
+A typical workflow with this package involves:
+
+1. **Configure** the client (optional): `tnm_set_config()`
+2. **Explore** available datasets: `tnm_info()`
+3. **Retrieve** data: `tnm_data()` for tabular data, `tnm_geo()` for spatial data
+4. **Visualize** (optional): `tnm_svg()` for quick map generation
+
+```{r}
+# Example workflow
+# 1. Set language preference
+tnm_set_config(language = "en")
+
+# 2. Get dataset information
+info <- tnm_info("world-2")
+
+# 3. Retrieve both tabular and spatial data
+countries <- tnm_data("world-2", date = "2020-01-01")
+boundaries <- tnm_geo("world-2", date = "2020-01-01")
+
+# 4. Generate a map
+world_map <- tnm_svg("world-2", date = "2020-01-01")
+```
+
+## Notes
+
+- All functions support language localization through the `language` parameter
+- Date formats should follow ISO 8601 standard (YYYY-MM-DD)
+- Use `"*"` as date to get the most recent available data
+- The package handles HTTP requests with configurable timeouts
+- Geospatial data is returned as `sf` objects for easy integration with spatial workflows

@@ -7,15 +7,19 @@ tnm_validate_dataset <- function(dataset) {
   }
   invisible(dataset)
 }
+
 tnm_validate_date <- function(date, allow_star = TRUE) {
   if (inherits(date, "Date")) return(format(date, "%Y-%m-%d"))
   if (allow_star && identical(date, "*")) return(date)
   rx <- "^(\\d{4})(?:-(\\d{2})(?:-(\\d{2}))?)?$"
-  if (!is.character(date) || length(date) != 1L || !grepl(rx, date)) {
+  if (!is.character(date) ||
+    length(date) != 1L ||
+    !grepl(rx, date)) {
     stop("Date must be 'YYYY', 'YYYY-MM', 'YYYY-MM-DD', or '*'.", call. = FALSE)
   }
   date
 }
+
 tnm_collapse_props <- function(x) {
   if (is.null(x)) return(NULL)
   stopifnot(is.character(x))

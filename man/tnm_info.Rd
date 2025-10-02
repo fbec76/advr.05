@@ -21,5 +21,5 @@ tnm_info(
 A list containing metadata and properties of the dataset.
 }
 \description{
-Downloads metadata and information for a specified TNM dataset.
+Retrieve Metadata Information About a TNM Dataset
 }

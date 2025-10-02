@@ -1,6 +1,5 @@
 #' Retrieve Metadata Information About a TNM Dataset
 #'
-#' Downloads metadata and information for a specified TNM dataset.
 #' @importFrom jsonlite fromJSON
 #' @importFrom httr2 resp_body_string
 #'

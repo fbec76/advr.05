@@ -1,7 +1,5 @@
 #' Retrieve and Parse Data from a Thenmap Dataset
 #'
-#' Downloads data from a specified Thenmap dataset, returning it as a data frame. Supports multiple formats and languages.
-#'
 #' @param dataset Name or ID of the Thenmap dataset.
 #' @param date Optional date (default "*").
 #' @param data_props Vector of requested data property names (default `c("id", "name")`).

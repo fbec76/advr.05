@@ -1,7 +1,5 @@
 #' Retrieve Geospatial Data from a Thenmap Dataset
 #'
-#' Downloads geospatial data (GeoJSON or TopoJSON) for a given Thenmap dataset and date.
-#'
 #' @param dataset Name or ID of the Thenmap dataset.
 #' @param date Date to retrieve data for.
 #' @param geo_type Geospatial format: `"geojson"` or `"topojson"` (default `"geojson"`).

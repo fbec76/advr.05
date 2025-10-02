@@ -33,5 +33,5 @@ tnm_geo(
 An \code{{sf}} object or parsed geospatial list.
 }
 \description{
-Downloads geospatial data (GeoJSON or TopoJSON) for a given Thenmap dataset and date.
+Retrieve Geospatial Data from a Thenmap Dataset
 }

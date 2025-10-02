@@ -12,8 +12,7 @@ tnm_svg(
   svg_height = 600,
   svg_props = NULL,
   language = tnm_get_config()$language,
-  version = tnm_get_config()$version,
-  path = NULL
+  version = tnm_get_config()$version
 )
 }
 \arguments{
@@ -32,12 +31,10 @@ tnm_svg(
 \item{language}{Language code (default from config).}
 
 \item{version}{Dataset version (default from config).}
-
-\item{path}{If set, path to save the SVG file. If \code{NULL}, returns SVG as a string.}
 }
 \value{
-SVG string if \code{path} is \code{NULL}, otherwise invisibly returns the file path.
+SVG string
 }
 \description{
-Downloads an SVG image for a specified TNM dataset and date, with options for projection, size, and properties.
+Retrieve an SVG Map from a TNM Dataset
 }

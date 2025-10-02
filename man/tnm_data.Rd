@@ -27,5 +27,5 @@ tnm_data(
 A  data frame or list with the downloaded dataset.
 }
 \description{
-Downloads data from a specified Thenmap dataset, returning it as a data frame. Supports multiple formats and languages.
+Retrieve and Parse Data from a Thenmap Dataset
 }
