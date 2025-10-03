@@ -24,7 +24,7 @@ tnm_default_timeout <- function() {
 #' @export
 tnm_set_config <- function(base_url = NULL, version = NULL, language = NULL, timeout = NULL) {
   if (!is.null(base_url)) options(thenmap.base_url = base_url)
-  if (!is.null(version)) options(thenmap.vers0ion = version)
+  if (!is.null(version)) options(thenmap.version = version)
   if (!is.null(language)) options(thenmap.language = language)
   if (!is.null(timeout)) options(thenmap.timeout = timeout)
   invisible(tnm_get_config())
